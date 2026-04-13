@@ -1,6 +1,10 @@
+<p align="center">
+  <img src="choseek1.ico" width="400" alt="choseek1 icon">
+</p>
+
 # choseek1
 
-A focused PyQt-based photo culling tool for JPEG+RAW workflows.
+A focused, lightning-fast PyQt-based photo culling tool for JPEG+RAW workflows. 
 
 ## Goal
 
@@ -12,75 +16,56 @@ Shoot RAW+JPEG on camera, review JPEGs fast, mark keepers, then delete:
 Final result:
 - only keeper RAW files remain in the folder
 
-## Current status
+## Features (v1.0 Stable)
 
-This repository currently contains the initial skeleton:
-- PyQt app bootstrap
-- main window with vertical split
-- preview pane
-- thumbnail strip
-- folder scan for JPEG/RAW pairs
-- keep/delete toggling
-- delete plan execution
+This repository is no longer a skeleton—it is a fully featured culling machine:
+- **High-Performance Scanning:** Background threading and native EXIF-aware `QImageReader` decoding for instant visual feedback.
+- **Dark Mode UI:** A distraction-free, professional dark theme.
+- **Dynamic Thumbnails:** Fluid scaling via a status bar slider, complete with visual KEEP/DELETE badges.
+- **Interactive Preview:** Mouse-wheel zoom, click-and-drag panning, and middle-click reset.
+- **The Loupe:** Hold right-click for a customizable, high-res magnification lens.
+- **Keyboard-First Flow:** Configurable shortcuts to blast through queues without lifting your hands.
+- **Multi-Select:** Shift/Ctrl click support with right-click contextual menus for batch tagging.
+- **Dev Safe Mode:** A simulated deletion mode so you can test your culling logic without touching your hard drive.
+- **Session Persistence:** Automatically remembers your window size, splitter position, and slider settings.
 
-## Workflow concept
+## TL;DR Workflow
 
-1. Open a folder with paired JPEG and RAW files
-2. JPEGs are used for review only
-3. Mark keeper shots
-4. Run delete action
-5. App removes all JPEGs and all rejected RAWs
-6. Only keeper RAWs remain
+1. Shoot RAW+JPEG and put them in one folder.
+2. Click **Load** to scan them (JPEGs load instantly).
+3. Navigate with Arrow Keys.
+4. **Shift-Click** or **Ctrl-Click** thumbnails to multi-select.
+5. Scroll Wheel to Zoom, Left-Click Drag to Pan, Middle-Click to Fit.
+6. Hold Right-Click for Loupe (Magnifier).
+7. Right-Click the ribbon for batch Keep/Delete/Invert.
+8. Press **Space** to toggle selected items.
+9. Press **Delete** to execute deletion.
 
-## Planned modules
-
-- `app/models/`
-  - data models such as `PhotoPair`
-- `app/services/`
-  - folder scan
-  - settings persistence
-  - deletion logic
-- `app/gui/`
-  - main window
-  - preview widget
-  - thumbnail strip
-  - status widgets
-
-## Planned roadmap
-
-### Phase 1
-- base skeleton
-- folder scan
-- selection and preview
-
-### Phase 2
-- visual keep/delete overlays
-- keyboard-first culling flow
-- improved thumbnail generation
-
-### Phase 3
-- click-and-hold rectangular magnifier
-- zoom settings
-- smoother preview scaling
-
-### Phase 4
-- safer delete confirmation
-- optional trash/recycle-bin support
-- session persistence
-
-## Install on Windows
+## Install on Windows (Source)
 
 1. Open the project folder
-2. Run:
+2. Run the included batch scripts:
 
 ```bat
 install.bat
 run.bat
 ```
 
+## Build Standalone `.exe`
+
+Want to share the app or run it without Python installed? You can compile it into a standalone Windows executable.
+
+1. Ensure you have run `install.bat` once to set up your environment.
+2. Run:
+```bat
+build.bat
+```
+3. Your compiled app will be generated inside the `dist/choseek1` folder. You can zip this folder and run `choseek1.exe` on any Windows machine.
+
 ## Manual install
 
-```py -m venv .venv
+```bat
+py -m venv .venv
 .venv\Scripts\activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
