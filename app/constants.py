@@ -2,6 +2,7 @@ from pathlib import Path
 
 APP_NAME = "choseek1"
 APP_ORG = "hanenashi"
+APP_VERSION = "1.0"
 
 SUPPORTED_JPEG_EXTS = {".jpg", ".jpeg"}
 SUPPORTED_RAW_EXTS = {

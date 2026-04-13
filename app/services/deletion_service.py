@@ -21,14 +21,15 @@ def build_delete_plan(pairs: list[PhotoPair]) -> tuple[list[Path], list[Path]]:
     return files_to_delete, raws_to_keep
 
 
-def execute_delete_plan(files_to_delete: list[Path]) -> tuple[list[Path], list[tuple[Path, str]]]:
+def execute_delete_plan(files_to_delete: list[Path], safe_mode: bool = False) -> tuple[list[Path], list[tuple[Path, str]]]:
     deleted: list[Path] = []
     failed: list[tuple[Path, str]] = []
 
     for path in files_to_delete:
         try:
             if path.exists():
-                path.unlink()
+                if not safe_mode:
+                    path.unlink()
                 deleted.append(path)
         except Exception as exc:
             failed.append((path, str(exc)))
