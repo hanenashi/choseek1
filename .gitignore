@@ -1,0 +1,36 @@
+
+## Better `.gitignore`
+Use this version instead of the current one:
+
+```gitignore
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Build / packaging
+build/
+dist/
+*.spec
+pip-wheel-metadata/
+
+# Tooling / IDE
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# App runtime data
+data/*
+!data/.gitkeep
+
+# Optional local settings/cache later
+*.log
