@@ -94,7 +94,7 @@ class SettingsDialog(QDialog):
 
 
 class MainWindow(QMainWindow):
-    def __init__(self) -> None:
+    def __init__(self, startup_folder: Path | None = None) -> None:
         super().__init__()
         self.setWindowTitle(f"choseek1 v{APP_VERSION}")
         self.resize(1400, 900)
@@ -121,6 +121,9 @@ class MainWindow(QMainWindow):
         self._build_actions()
         self._build_shortcuts()
         self._connect_signals()
+
+        if startup_folder is not None:
+            QTimer.singleShot(0, lambda: self.open_startup_folder(startup_folder))
 
     def _build_ui(self) -> None:
         self.splitter = QSplitter(Qt.Orientation.Vertical)
@@ -274,6 +277,15 @@ class MainWindow(QMainWindow):
             return
 
         self.current_folder = Path(folder)
+        self._start_scan(self.current_folder, "Starting folder scan...", "Loading...")
+
+    def open_startup_folder(self, folder: Path) -> None:
+        folder = folder.resolve()
+        if not folder.exists() or not folder.is_dir():
+            QMessageBox.warning(self, "Folder not found", f"Could not open folder:\n{folder}")
+            return
+
+        self.current_folder = folder
         self._start_scan(self.current_folder, "Starting folder scan...", "Loading...")
 
     def _start_scan(self, folder: Path, status_text: str, preview_text: str) -> None:

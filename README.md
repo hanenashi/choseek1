@@ -62,6 +62,40 @@ build.bat
 ```
 3. Your compiled app will be generated inside the `dist/choseek1` folder. You can zip this folder and run `choseek1.exe` on any Windows machine.
 
+## Windows folder right-click menu
+
+You can add an `Open folder in choseek1` action to the Windows folder context menu.
+This lets you start choseek1 directly from the folder you want to cull, instead of
+opening the app first and browsing for the folder.
+
+Install the menu entry:
+
+```bat
+install_context_menu.bat
+```
+
+After installation, use either of these:
+
+- Right-click a folder in File Explorer and choose `Open folder in choseek1`
+- Right-click empty space inside a folder and choose `Open folder in choseek1`
+
+The launcher uses `dist\choseek1\choseek1.exe` when a built app exists. If you
+have not built the app yet, it falls back to the local Python environment created
+by `install.bat`.
+
+Total Commander can use the same command if your setup does not show normal
+Windows shell menu entries:
+
+```text
+C:\GIT\choseek1\choseek1-open.bat "%P"
+```
+
+Remove the menu entry:
+
+```bat
+uninstall_context_menu.bat
+```
+
 ## Manual install
 
 ```bat

@@ -1,7 +1,15 @@
+import os
 import sys
+from pathlib import Path
 from PyQt6.QtGui import QPalette, QColor, QIcon
 from PyQt6.QtWidgets import QApplication
 from app.gui.main_window import MainWindow
+
+
+def get_app_root() -> Path:
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).resolve().parent
+    return Path(__file__).resolve().parent.parent
 
 
 def set_dark_theme(app: QApplication) -> None:
@@ -25,6 +33,8 @@ def set_dark_theme(app: QApplication) -> None:
 
 
 def main() -> None:
+    os.chdir(get_app_root())
+
     app = QApplication(sys.argv)
     app.setApplicationName("choseek1")
     app.setOrganizationName("hanenashi")
@@ -34,7 +44,8 @@ def main() -> None:
     
     set_dark_theme(app)
 
-    window = MainWindow()
+    startup_folder = Path(sys.argv[1]).expanduser() if len(sys.argv) > 1 else None
+    window = MainWindow(startup_folder=startup_folder)
     window.show()
 
     sys.exit(app.exec())
