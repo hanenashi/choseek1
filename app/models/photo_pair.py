@@ -10,6 +10,7 @@ class PhotoPair:
     raw_path: Path | None = None
     keep: bool = False
     thumb_image: QImage | None = None
+    exif_tooltip: str = ""
 
     @property
     def has_jpeg(self) -> bool:

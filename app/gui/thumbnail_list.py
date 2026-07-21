@@ -153,3 +153,4 @@ class ThumbnailList(QListWidget):
         
         item.setIcon(QIcon(pixmap))
         item.setText("")
+        item.setToolTip(pair.exif_tooltip)

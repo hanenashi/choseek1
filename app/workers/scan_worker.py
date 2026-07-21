@@ -4,6 +4,7 @@ from PyQt6.QtGui import QImageReader
 
 from app.constants import SUPPORTED_JPEG_EXTS, SUPPORTED_RAW_EXTS
 from app.models.photo_pair import PhotoPair
+from app.services.exif_service import build_exif_tooltip
 
 
 class ScanWorker(QObject):
@@ -45,6 +46,8 @@ class ScanWorker(QObject):
 
             for i, pair in enumerate(result, start=1):
                 if pair.jpeg_path is not None:
+                    pair.exif_tooltip = build_exif_tooltip(pair.jpeg_path, pair.base_name)
+
                     reader = QImageReader(str(pair.jpeg_path))
                     reader.setAutoTransform(True)
                     orig_size = reader.size()
