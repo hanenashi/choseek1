@@ -6,10 +6,25 @@ from PyQt6.QtWidgets import QApplication
 from app.gui.main_window import MainWindow
 
 
+WINDOWS_APP_ID = "hanenashi.choseek1"
+
+
 def get_app_root() -> Path:
     if getattr(sys, "frozen", False):
         return Path(sys.executable).resolve().parent
     return Path(__file__).resolve().parent.parent
+
+
+def set_windows_app_id() -> None:
+    if sys.platform != "win32":
+        return
+
+    try:
+        import ctypes
+
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(WINDOWS_APP_ID)
+    except Exception:
+        pass
 
 
 def set_dark_theme(app: QApplication) -> None:
@@ -33,19 +48,22 @@ def set_dark_theme(app: QApplication) -> None:
 
 
 def main() -> None:
-    os.chdir(get_app_root())
+    app_root = get_app_root()
+    os.chdir(app_root)
+    set_windows_app_id()
 
     app = QApplication(sys.argv)
     app.setApplicationName("choseek1")
     app.setOrganizationName("hanenashi")
     
-    # Set the icon
-    app.setWindowIcon(QIcon("choseek1.ico"))
+    icon = QIcon(str(app_root / "choseek1.ico"))
+    app.setWindowIcon(icon)
     
     set_dark_theme(app)
 
     startup_folder = Path(sys.argv[1]).expanduser() if len(sys.argv) > 1 else None
     window = MainWindow(startup_folder=startup_folder)
+    window.setWindowIcon(icon)
     window.show()
 
     sys.exit(app.exec())

@@ -11,13 +11,13 @@ if exist "dist\choseek1\choseek1.exe" (
     goto :end
 )
 
-if not exist ".venv\Scripts\python.exe" (
+if not exist ".venv\Scripts\pythonw.exe" (
     echo [FAIL] Virtual environment not found. Run install.bat first.
     pause
     goto :end
 )
 
-start "" "%~dp0.venv\Scripts\python.exe" "%~dp0run.py" "%TARGET_FOLDER%"
+start "" "%~dp0.venv\Scripts\pythonw.exe" "%~dp0run.py" "%TARGET_FOLDER%"
 
 :end
 endlocal
